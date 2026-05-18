@@ -94,7 +94,7 @@ Use the included scripts to recreate data and model artifacts locally.
 Install dependencies:
 
 ```powershell
-cd E:\big3\projects\cartoon
+cd Photo2Anime-CycleGAN
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --upgrade pip setuptools wheel
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
