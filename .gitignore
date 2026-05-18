@@ -1,0 +1,52 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments and local environment files
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local datasets and downloaded raw assets
+raw/
+data/**/*.jpg
+data/**/*.jpeg
+data/**/*.png
+data/**/*.webp
+data/**/*.bmp
+data/**/*.tif
+data/**/*.tiff
+data/**/manifest.json
+
+# Model checkpoints and generated results
+checkpoints/
+outputs/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Large archives and tabular dataset shards
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
+*.parquet
+
+# Logs and temporary files
+*.log
+tmp/
+temp/

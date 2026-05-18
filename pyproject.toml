@@ -1,0 +1,18 @@
+[project]
+name = "anime-style-project"
+version = "0.1.0"
+description = "CycleGAN-based photo-to-anime image translation with a local demo fallback."
+requires-python = ">=3.9"
+dependencies = [
+  "torch>=2.2",
+  "torchvision>=0.17",
+  "Pillow>=10.0",
+  "opencv-python>=4.8",
+  "numpy>=1.24",
+  "tqdm>=4.66",
+  "gradio>=4.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["anime_style*"]
+
