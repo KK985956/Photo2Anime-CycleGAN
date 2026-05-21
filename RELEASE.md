@@ -1,34 +1,27 @@
 # Release Notes
 
-## Photo2Anime Windows App
+## Photo2Anime Trained Checkpoint
 
-The Windows app is built from `Photo2Anime.spec` and launches the built-in web interface at:
-
-```text
-http://127.0.0.1:7860/
-```
-
-Users should download the full packaged `Photo2Anime` folder, then run:
+The release includes the trained model checkpoint:
 
 ```text
-Photo2Anime.exe
+latest.pt
 ```
 
-or:
+Training images are not included. To use the checkpoint, download `latest.pt` and place it at:
 
 ```text
-启动 Photo2Anime.bat
+checkpoints/anime_cyclegan/latest.pt
 ```
 
-Do not distribute only the `.exe`; the `_internal` folder contains required Python, PyTorch, and checkpoint files.
+Then run the local app:
 
-### Compatibility
+```powershell
+.\start_app.bat
+```
 
-- Windows x64.
-- No local Python installation required.
-- NVIDIA GPU is optional. CPU fallback works but is slower.
-- The included model checkpoint controls output quality and style.
+or run inference directly:
 
-### Large Files
-
-The packaged app is not tracked in Git because it contains multi-GB runtime files and model weights. Upload packaged builds to GitHub Releases or another file hosting service.
+```powershell
+.\.venv\Scripts\python.exe scripts\infer.py data\testA --output outputs\anime --checkpoint checkpoints\anime_cyclegan\latest.pt
+```

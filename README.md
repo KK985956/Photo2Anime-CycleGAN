@@ -41,6 +41,14 @@ checkpoints/anime_cyclegan/latest.pt
 
 That checkpoint can be reused for future inference without retraining.
 
+If you only want to use the trained model, download `latest.pt` from the latest GitHub Release and place it at:
+
+```text
+checkpoints/anime_cyclegan/latest.pt
+```
+
+Training images are not required for inference and are not included in releases.
+
 ## Project Structure
 
 ```text
@@ -187,6 +195,29 @@ Single image inference:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\infer.py input.jpg --output outputs\input_anime.png --checkpoint checkpoints\anime_cyclegan\latest.pt
+```
+
+## Use The Released Model
+
+The release includes only the trained checkpoint, not the training datasets. To use it:
+
+1. Download `latest.pt` from the latest GitHub Release.
+2. Create the checkpoint directory:
+
+```powershell
+New-Item -ItemType Directory -Force checkpoints\anime_cyclegan
+```
+
+3. Put the downloaded file here:
+
+```text
+checkpoints/anime_cyclegan/latest.pt
+```
+
+4. Run inference or start the local app:
+
+```powershell
+.\start_app.bat
 ```
 
 ## Web Demo
