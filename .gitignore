@@ -33,6 +33,8 @@ data/**/manifest.json
 # Model checkpoints and generated results
 checkpoints/
 outputs/
+build/
+dist/
 *.pt
 *.pth
 *.ckpt

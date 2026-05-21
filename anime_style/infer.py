@@ -2,9 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PIL import Image
-
-from .classical import anime_filter
+from PIL import Image, ImageOps
 
 
 class AnimeStylizer:
@@ -58,20 +56,20 @@ class AnimeStylizer:
 
     def _model_predict(self, image: Image.Image) -> Image.Image:
         import torch
-        from torchvision import transforms
+        import numpy as np
 
         from .utils import tensor_to_pil
 
         original_size = image.size
-        transform = transforms.Compose(
-            [
-                transforms.Resize(self.image_size, interpolation=transforms.InterpolationMode.BICUBIC),
-                transforms.CenterCrop(self.image_size),
-                transforms.ToTensor(),
-                transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
-            ]
+        prepared = ImageOps.fit(
+            image.convert("RGB"),
+            (self.image_size, self.image_size),
+            method=Image.Resampling.BICUBIC,
+            centering=(0.5, 0.5),
         )
-        tensor = transform(image.convert("RGB")).unsqueeze(0).to(self.device)
+        array = np.asarray(prepared, dtype=np.float32)
+        tensor = torch.from_numpy(array).permute(2, 0, 1).unsqueeze(0)
+        tensor = (tensor / 127.5 - 1.0).to(self.device)
         with torch.no_grad():
             output = self.model(tensor)
         result = tensor_to_pil(output)
@@ -82,6 +80,8 @@ class AnimeStylizer:
             return self._model_predict(image)
         if not self.use_fallback:
             raise RuntimeError("No model is loaded and fallback is disabled.")
+        from .classical import anime_filter
+
         return anime_filter(image)
 
 

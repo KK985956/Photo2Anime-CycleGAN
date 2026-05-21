@@ -191,7 +191,7 @@ Single image inference:
 
 ## Web Demo
 
-Start the demo without a checkpoint:
+Start the local app without a checkpoint:
 
 ```powershell
 .\.venv\Scripts\python.exe web_demo\app.py --host 127.0.0.1 --port 7860
@@ -203,11 +203,47 @@ Start with a trained checkpoint:
 .\.venv\Scripts\python.exe web_demo\app.py --checkpoint checkpoints\anime_cyclegan\latest.pt --host 127.0.0.1 --port 7860
 ```
 
+Or use the double-click launcher on Windows:
+
+```powershell
+.\start_app.bat
+```
+
 Open:
 
 ```text
 http://127.0.0.1:7860/
 ```
+
+The Gradio UI supports single-image and batch conversion when Gradio is installed. If Gradio is unavailable, the app falls back to a built-in HTTP interface.
+
+## Windows Packaging
+
+This project includes a PyInstaller spec and a packaging entrypoint for building a local Windows app:
+
+```powershell
+.\.venv\Scripts\python.exe -m PyInstaller --noconfirm --clean Photo2Anime.spec
+```
+
+The packaged app is created at:
+
+```text
+dist/Photo2Anime/
+```
+
+Run it with:
+
+```text
+dist/Photo2Anime/Photo2Anime.exe
+```
+
+Important distribution notes:
+
+- Copy the whole `dist/Photo2Anime` folder. Do not copy only `Photo2Anime.exe`.
+- The packaged folder includes the trained checkpoint under `_internal/checkpoints/anime_cyclegan/latest.pt`.
+- Generated images are saved under `outputs/app` next to the packaged executable.
+- The packaged build is Windows x64 only. It can run without a local Python install, but the first launch may take several seconds while the model loads.
+- The packaged folder is several GB because it includes PyTorch runtime files and model weights, so it should be distributed as a GitHub Release asset or external download, not committed to the Git repository.
 
 ## Training Tips
 
